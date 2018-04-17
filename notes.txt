@@ -1,0 +1,52 @@
+## Blog must have 2 pages. One for creating 
+        a new blog, and one for showing all bolg posts.
+        also, I guess one for the individual blog posts.
+
+## use get params to get the url string to use as a variable
+        use this variable to query the database for th eblog post database
+
+        request.args.get('param_name') => this gets the part in url after ?
+
+## 
+
+
+/*********************** LEARN *****************************/
+
+@app.route("/ratings"): 
+    This executes whenever you are on the ratings page. 
+    So all code below this and before the next app.route will
+    be executed. 
+
+    "POST" method is only for when you post data 
+    ex: a form or blog
+
+ADD DATA TO database:
+    Now run the following commands one at a time to add data to the database:
+
+    >>> new_task = Task('finish ORM lesson 2')
+    >>> db.session.add(new_task)
+    >>> another_task = Task('post lesson video')
+    >>> db.session.add(another_task)
+    >>> db.session.commit()
+
+GET DATA FROM DATABASE:
+    To get data from the database, run the following:
+
+    >>> tasks = Task.query.all()
+    >>> tasks[0].name
+
+
+
+
+/******************** DATE TIME *******************************/
+
+from datetime import datetime
+
+class Post(db.Model):
+    pub_date = db.Column(db.DateTime)
+
+    def __init__(self, title, body, category, pub_date=None):
+        self.title = title
+        self.body = body
+        if pub_date is None:
+            pub_date = datetime.utcnow()

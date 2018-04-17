@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+
+   <h1>B.A.B.</h1>
+
+    {% if blog_entries|length > 0 %}
+        {% for entry in blog_entries: %}
+            <div class='blog_entries' >
+                <a href="/?id={{ entry.id }}"><h2>{{ entry.title }} </h2></a>
+                <p>{{ entry.body }} </p>
+            </div>
+        {% endfor %}
+        
+    {% endif %}
+
+{% endblock %}

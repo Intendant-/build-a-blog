@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/mainpage.css') }}">
+    <style type='text/css' >
+    form {
+        display: inline-block;
+        max-width: 50%;
+    }
+    form input {
+        display: block;
+        max-width: 100%;
+        margin: 5px;
+    }
+    </style>
+</head>
+<body>
+    <ul>
+        <li><a href="/">Main Blog Page</a></li>
+        <li><a href="/newpost/">Add a Blog Entry</a></li>
+    </ul>
+    {% block content %}
+    {% endblock %}
+</body>
+</html>
