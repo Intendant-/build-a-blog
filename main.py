@@ -14,29 +14,24 @@ class Blog(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(200))
-    body = db.Column(db.String(1000))
-    pub_date = db.Column(db.DateTime)
+    body = db.Column(db.String(200))
+    ##pub_date = db.Column(db.DateTime)
 
-    def __init__(self, title, body, pub_date = None):
+    def __init__(self, title, body): ## pub_date = None):
         self.title = title
         self.body = body
-        if pub_date is None:
-            pub_date = datetime.utcnow()
-        self.pub_date = pub_date
+        ##if pub_date is None:
+        ##    pub_date = datetime.utcnow()
+        ##self.pub_date = pub_date
 
 def blog_entries():
     return Blog.query.all()
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/')
 def index():
-    id = request.args.get('id')
-    if id:
-        post = Blog.query.filter_by(id=id).first()
-        return render_template('post.html', post = post)
-    else:
-        return render_template('blog.html', blog_entries = blog_entries()) ## blog_entries
+    return redirect('/blog')
 
-@app.route('/newpost/', methods=['GET', 'POST'])
+@app.route('/newpost', methods=['GET', 'POST'])
 def newpost():
 
     if request.method == 'POST':
@@ -44,14 +39,31 @@ def newpost():
         body = request.form['blog_text']
 
         # TODO validate form title and body
-        entry = Blog(title = title, body = body)
+        entry = Blog(title, body)
         db.session.add(entry)
         db.session.commit()
-        return redirect('/') 
-        ##return redirect('/?id=' + entry.id .format(entry))
+        return render_template('test.html', entry = entry) ##redirect('/')
+        ##
     else:
         return render_template('newpost.html')
 
+@app.route('/blog', methods=['GET', 'POST'])
+def blog():
+    id = request.args.get('id')
+    if id:
+        post = Blog.query.filter_by(id=id).first()
+        return render_template('post.html', post = post)
+    else:
+        return render_template('blog.html', blog_entries = blog_entries()) 
+
+##@app.route("blog?id=<integer:id>")
+
 
 if __name__ == "__main__":
-    app.run()        
+    app.run()      
+
+
+
+## left TODO:
+#       validation of form data
+#       redirect to specific blog after submitting    

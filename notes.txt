@@ -35,6 +35,12 @@ GET DATA FROM DATABASE:
     >>> tasks = Task.query.all()
     >>> tasks[0].name
 
+/ ********************* to add *******************************/
+
+
+
+return redirect('/?id=' + entry.id .format(entry))
+
 
 
 
